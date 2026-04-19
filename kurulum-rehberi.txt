@@ -1,0 +1,33 @@
+--- DISDR NEXT.JS PROJESİ SUNUCU KURULUM REHBERİ ---
+
+Bu proje (Admin Paneli, Veritabanı ve Dinamik Blog içerdiği için) klasik HTML sayfaları gibi FTP'ye atılarak doğrudan ÇALIŞMAZ. 
+Bir "Node.js" sunucusuna (cPanel Node.js destekli Hosting, Vercel veya VPS Sunucu) ihtiyacınız vardır.
+
+ADIM 1: VERİTABANINI KURMA (MySQL)
+1. Sunucunuzda (cPanel/Plesk vb. üzerinden) boş bir MySQL veritabanı oluşturun ve bir kullanıcı yetkilendirin.
+2. Bu proje klasörünün ana dizininde oluşturduğum "database.sql" isimli dosyayı phpMyAdmin üzerinden bu yeni veritabanına "İçe Aktar (Import)" diyerek yükleyin. Bu, gerekli tüm tabloları (User, Post, Media vb.) otomatik ayarlayacaktır.
+
+ADIM 2: SUNUCU DOSYALARINI GÖNDERME (FTP)
+Aşağıdaki dosya ve klasörleri sunucunuzdaki ana dizine gönderin:
+- .next (Klasörü)
+- public (Klasörü)
+- package.json
+- package-lock.json
+- prisma (Klasörü)
+- next.config.ts
+
+(NOT: "node_modules" klasörünü ve "src" klasörünü FTP üzerinden göndermenize GEREK YOKTUR, boyutu çok büyüktür.)
+
+ADIM 3: .env DOSYASINI AYARLAMA
+Sunucuda ".env" adında bir dosya oluşturun ve içine şu bilgileri yazın:
+
+DATABASE_URL="mysql://veritabani_kullanici_adiniz:Sifreniz@localhost:3306/veritabani_adiniz"
+JWT_SECRET="guvenlıkicinzorkarısıksifreniz"
+
+ADIM 4: PROJEYİ BAŞLATMA
+Hosting yönetim panelinizdeki "Setup Node.js App" (Node.js Uygulaması Kur) bölümüne gidin.
+Uygulamayı başlatırken sistem sizden `npm install` komutunu çalıştırmanızı (bağımlılıkları kurması için) isteyecektir.
+Sonrasında başlangıç komutu olarak `npm run start` diyerek projeyi yayına alabilirsiniz.
+
+--- TAVSİYE --- 
+Eğer VERCEL kullanırsanız, bu FTP işlemleriyle uğraşmadan GitHub üzerinden tek tıkla ve ÜCRETSİZ olarak çok daha hızlı bir şekilde web sitenizi yayına alabilirsiniz. Sadece Veritabanını sunucunuzda tutarsınız.
